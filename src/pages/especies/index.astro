@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { getEspecies } from '../../lib/contenido';
+
+const especies = await getEspecies();
+---
+
+<Base titulo="Perros, gatos y conejos" descripcion="Cuidados básicos, qué mirar y qué señales de alarma tiene cada especie.">
+  <div class="contenedor cabecera-pagina">
+    <h1>Cada animal, su manera</h1>
+    <p>Lo básico de cada especie: qué observar, cómo cuidarla y cuándo preocuparse.</p>
+  </div>
+  <section class="seccion" style="padding-top:24px">
+    <div class="contenedor tarjetas">
+      {especies.map((e) => (
+        <a class="tarjeta tarjeta--foto" href={`/especies/${e.id}/`}>
+          <Image src={e.data.foto} alt={e.data.fotoAlt} widths={[400, 700]} sizes="(min-width: 960px) 30vw, 90vw" />
+          <div class="cuerpo"><h2 style="font-size:1.8rem;margin:0">{e.data.plural}</h2><p>{e.data.resumen}</p></div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

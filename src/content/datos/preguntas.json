@@ -1,0 +1,10 @@
+[
+  { "id": "q1", "tema": "cita", "pregunta": "¿Hace falta cita o puedo ir sin ella?", "respuesta": "Para consultas y vacunas, mejor con cita para no esperar. Las urgencias se atienden sin cita en horario de clínica; si es fuera de horario, llama al teléfono de urgencias." },
+  { "id": "q2", "tema": "cita", "pregunta": "¿Cómo llevo a mi gato o conejo a la clínica?", "respuesta": "En un transportín cerrado y estable, con una manta que huela a casa. Los gatos y los conejos se asustan fácilmente y no deben ir sueltos en brazos." },
+  { "id": "q3", "tema": "cita", "pregunta": "¿Puedo cancelar la cita?", "respuesta": "Sí, avísanos con al menos 12 horas por teléfono o WhatsApp para que otro animal pueda aprovechar la hora." },
+  { "id": "q4", "tema": "urgencias", "pregunta": "¿Qué hago si pasa algo fuera de horario?", "respuesta": "Llama al teléfono de urgencias. Si no hay respuesta, ve a la clínica de guardia más cercana: es preferible ir y que no sea nada." },
+  { "id": "q5", "tema": "urgencias", "pregunta": "¿La guía de urgencias sustituye a una visita?", "respuesta": "No. Es una orientación general y no un diagnóstico. Si tienes dudas o tu animal te preocupa, llámanos o ve a un veterinario." },
+  { "id": "q6", "tema": "vacunas", "pregunta": "Mi gato vive en casa, ¿necesita vacunas?", "respuesta": "Sí, aunque no salga. Algunos virus entran en casa en la ropa o los zapatos, y si algún día escapa o lo llevas a una residencia estará protegido." },
+  { "id": "q7", "tema": "vacunas", "pregunta": "¿Y si he perdido el pasaporte o el calendario?", "respuesta": "Trae el microchip: lo leemos, buscamos su historial y, si no hay registro, te decimos cómo reconstruir su calendario con seguridad." },
+  { "id": "q8", "tema": "general", "pregunta": "¿Cuánto cuesta la consulta?", "respuesta": "La consulta general cuesta 32 €. Si hay que hacer pruebas o tratamientos, te damos el presupuesto antes de empezar." }
+]

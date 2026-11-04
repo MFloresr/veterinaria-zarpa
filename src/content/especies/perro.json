@@ -1,0 +1,12 @@
+{
+  "nombre": "Perro",
+  "plural": "Perros",
+  "foto": "../../assets/fotos/cachorro-golden.jpg",
+  "fotoAlt": "Cachorro de golden retriever mirando a la cámara",
+  "resumen": "Compañeros de rutina: necesitan paseo, juego, vacunas al día y una revisión al año. Cada raza y cada edad piden cosas distintas.",
+  "queMirar": ["Cómo come y cómo bebe: un cambio de apetito suele ser la primera señal", "Cómo camina y se levanta, sobre todo si es grande o mayor", "El pelo, la piel y las orejas: rascado, calvas o mal olor", "Sus dientes y su aliento"],
+  "cuidados": ["Una revisión completa al año (cada seis meses a partir de los siete)", "Vacunas y desparasitación según su calendario", "Paseo diario adaptado a su edad y raza", "Cepillado de dientes varias veces por semana", "Peso estable: un perro delgado vive más y con menos dolor"],
+  "alarma": ["Barriga hinchada con arcadas sin vomitar", "Encías pálidas o azuladas", "Ha comido chocolate, uvas, pasas o xilitol", "Golpe de calor tras un paseo o en el coche"],
+  "curiosidad": "Un perro puede oler una enfermedad mucho antes de que la veamos nosotros, pero no sabe decirnos si le duele algo: por eso las revisiones importan.",
+  "orden": 1
+}

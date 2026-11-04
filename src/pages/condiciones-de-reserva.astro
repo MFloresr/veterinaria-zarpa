@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import { sitio } from '../lib/sitio';
+---
+
+<Base titulo="Condiciones de cita" descripcion="Cómo funcionan las citas: confirmación, cambios, cancelaciones y retrasos." noindex>
+  <div class="contenedor cabecera-pagina"><h1>Condiciones de cita</h1></div>
+  <section class="seccion legal" style="padding-top:8px">
+    <div class="contenedor">
+      <p class="aviso aviso--demo" style="max-width:72ch">Plantilla de ejemplo. El cliente fija sus propias normas y su asesor las revisa antes de publicar.</p>
+      <h2>Cómo se reserva</h2>
+      <p>Al enviar el formulario de cita nos pides un hueco; la cita queda confirmada cuando te respondemos por teléfono o mensaje. Hasta entonces, el horario puede cambiar si hay un imprevisto.</p>
+      <h2>Cambios y cancelaciones</h2>
+      <p>Puedes cambiar o cancelar tu cita gratis hasta {sitio.cancelacionHoras} horas antes, llamando o escribiendo al {sitio.telefonoVisible}. Después de ese plazo podemos pedirte un importe por el tiempo reservado. [El cliente decide esta política.]</p>
+      <h2>Urgencias</h2>
+      <p>Las urgencias se atienden sin cita en horario de clínica. Fuera de horario, llama al teléfono de urgencias. Si hay varias a la vez, se atiende primero la más grave.</p>
+      <h2>Presupuestos</h2>
+      <p>Te damos un presupuesto orientativo antes de pruebas, cirugías o tratamientos largos, y te avisamos si cambia durante el proceso.</p>
+      <h2>Consentimiento informado</h2>
+      <p>Para anestesias y cirugías firmarás una autorización donde te explicamos riesgos y alternativas. [El cliente y su asesor revisan el modelo.]</p>
+      </div>
+  </section>
+</Base>

@@ -1,0 +1,6 @@
+[
+  { "id": "marta-ribas", "nombre": "Marta Ribas", "cargo": "Directora y veterinaria", "especialidad": "Medicina interna", "texto": "Le gusta explicar los análisis con dibujos. Dice que un dueño informado es la mejor medicina.", "colegiado": "Col. [nº de ejemplo]" },
+  { "id": "joan-sala", "nombre": "Joan Sala", "cargo": "Veterinario", "especialidad": "Cirugía y traumatología", "texto": "Lleva diez años operando. Siempre llama a casa por la noche para contar cómo ha ido.", "colegiado": "Col. [nº de ejemplo]" },
+  { "id": "lucia-mora", "nombre": "Lucía Mora", "cargo": "Veterinaria", "especialidad": "Animales exóticos y conejos", "texto": "Conejos, hurones y cobayas son sus pacientes favoritos. Tiene un conejo llamado Pantalón.", "colegiado": "Col. [nº de ejemplo]" },
+  { "id": "nuria-font", "nombre": "Núria Font", "cargo": "Auxiliar veterinaria", "especialidad": "Atención y cuidado en clínica", "texto": "La primera cara que ven los peludos. Conoce el nombre de cada animal y de su galleta favorita.", "colegiado": "Auxiliar técnico" }
+]

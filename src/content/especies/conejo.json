@@ -1,0 +1,12 @@
+{
+  "nombre": "Conejo",
+  "plural": "Conejos",
+  "foto": "../../assets/fotos/conejo.jpg",
+  "fotoAlt": "Conejo doméstico de pelo claro sentado sobre un fondo neutro",
+  "resumen": "No son roedores ni «mascotas fáciles»: viven de heno, necesitan espacio, compañía y un veterinario que conozca su especie.",
+  "queMirar": ["Cuánto heno come cada día: debe ser la base de su dieta", "El tamaño y la cantidad de la caca", "Sus dientes: no deben crecerle de más ni ponerle babeante", "Orejas y patas: pelo limpio y sin costras"],
+  "cuidados": ["Heno ilimitado, verdura fresca y pocas pastillas o semillas", "Vacunas de mixomatosis y hemorrágica vírica", "Espacio para saltar, no jaula pequeña", "Compañía de otro conejo o de su familia", "Revisión dental cada seis meses"],
+  "alarma": ["Más de 12 horas sin comer ni hacer caca", "Barriga hinchada o dura", "Inclina la cabeza o pierde el equilibrio", "Babea, o se le moja la barbilla"],
+  "curiosidad": "Un conejo sano come unas bolitas blandas por la noche (cecotrofia) para aprovechar mejor los nutrientes. Es normal y necesario.",
+  "orden": 3
+}

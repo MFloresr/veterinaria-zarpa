@@ -1,0 +1,12 @@
+{
+  "nombre": "Gato",
+  "plural": "Gatos",
+  "foto": "../../assets/fotos/gato-ojos-azules.jpg",
+  "fotoAlt": "Gato atigrado de ojos azules en primer plano",
+  "resumen": "Disimulan el dolor muy bien. Un gato que se esconde, come menos o deja de usar el arenero casi siempre nos está pidiendo ayuda.",
+  "queMirar": ["Cuánto bebe, orina y come, y si lo hace igual que otros días", "Cómo se acicala: un gato que deja de lavarse está mal", "Si usa el arenero con normalidad", "El peso: pequeños cambios importan mucho"],
+  "cuidados": ["Revisión anual y análisis a partir de los siete años", "Vacuna trivalente y, si sale, leucemia", "Arenero limpio, uno por gato más uno", "Juego diario y un sitio alto donde esconderse", "Agua fresca en varios sitios (mejor fuentes)"],
+  "alarma": ["Gato macho que intenta orinar y no puede", "Respira con la boca abierta", "Lleva un día entero sin comer", "Maullidos de dolor al moverlo"],
+  "curiosidad": "El ronroneo no siempre significa que está contento: los gatos también ronronean cuando tienen dolor o miedo, para calmarse.",
+  "orden": 2
+}

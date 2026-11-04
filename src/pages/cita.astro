@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import Formulario from '../components/Formulario.astro';
+import Preguntas from '../components/Preguntas.astro';
+import { getServicios } from '../lib/contenido';
+import { sitio } from '../lib/sitio';
+
+const servicios = await getServicios();
+const hoy = new Date().toISOString().slice(0, 10);
+---
+
+<Base titulo="Pedir cita" descripcion="Pide cita para tu perro, gato o conejo. Te confirmamos por teléfono o mensaje.">
+  <div class="contenedor cabecera-pagina">
+    <h1>Pedir cita</h1>
+    <p>Cuéntanos quién es y qué necesita. Te confirmamos la hora por teléfono o mensaje.</p>
+    <p class="aviso aviso--demo" style="max-width:68ch;margin-top:0">Si es una urgencia, <a href="/urgencias/">usa la guía</a> o llama al <a href={`tel:${sitio.telefonoUrgencias}`}>{sitio.telefonoUrgenciasVisible}</a>: no esperes a que te respondamos.</p>
+  </div>
+  <section class="seccion" style="padding-top:24px">
+    <div class="contenedor dos dos--desigual" style="align-items:start">
+      <Formulario tipo="cita" boton="Pedir la cita" mensajeOk="Solicitud recibida. Te confirmamos la hora por teléfono o mensaje.">
+        <div>
+          <label for="c-nombre">Tu nombre <span class="marca" aria-hidden="true">*</span></label>
+          <input id="c-nombre" name="nombre" type="text" autocomplete="name" required /><p class="error" data-error-para="nombre"></p>
+        </div>
+        <div>
+          <label for="c-tel">Teléfono <span class="marca" aria-hidden="true">*</span></label>
+          <input id="c-tel" name="telefono" type="tel" autocomplete="tel" required pattern="[0-9 +]{9,}" title="Escribe un teléfono de al menos 9 cifras" /><p class="error" data-error-para="telefono"></p>
+        </div>
+        <div>
+          <label for="c-animal">Animal <span class="marca" aria-hidden="true">*</span></label>
+          <select id="c-animal" name="animal" required>
+            <option value="">Elige…</option><option>Perro</option><option>Gato</option><option>Conejo</option><option>Otro</option>
+          </select><p class="error" data-error-para="animal"></p>
+        </div>
+        <div>
+          <label for="c-nombre-animal">Su nombre</label>
+          <input id="c-nombre-animal" name="nombre_animal" type="text" />
+        </div>
+        <div>
+          <label for="c-servicio">Motivo</label>
+          <select id="c-servicio" name="servicio">
+            <option value="">No lo sé / otro</option>
+            {servicios.map((s) => <option value={s.id}>{s.data.nombre}</option>)}
+          </select>
+        </div>
+        <div>
+          <label for="c-fecha">Día que prefieres</label>
+          <input id="c-fecha" name="fecha" type="date" min={hoy} />
+        </div>
+        <div class="ancho-total">
+          <label for="c-nota">¿Algo que debamos saber? (opcional)</label>
+          <textarea id="c-nota" name="nota" maxlength="400" style="min-height:90px"></textarea>
+          <p class="ayuda">Por ejemplo, desde cuándo le pasa o si toma algún medicamento. Te lo preguntaremos en consulta.</p>
+        </div>
+      </Formulario>
+      <aside>
+        <div class="tarjeta tarjeta--menta rotar-2" style="margin-bottom:22px">
+          <h2 style="font-size:1.6rem;margin:0">Cancelar es fácil</h2>
+          <p>Puedes cambiar o cancelar tu cita gratis hasta {sitio.cancelacionHoras} horas antes.</p>
+        </div>
+        <div class="tarjeta tarjeta--azul rotar-1">
+          <h2 style="font-size:1.6rem;margin:0">Antes de venir</h2>
+          <ul class="lista" style="margin:0">
+            <li>Trae su cartilla o pasaporte, si lo tiene.</li>
+            <li>Gatos y conejos, en transportín.</li>
+            <li>Perros, con correa.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+  <section class="banda banda--amarilla seccion"><div class="contenedor"><Preguntas tema="cita" titulo="Sobre las citas" /></div></section>
+</Base>
+
+<script>
+  // Llegar desde un servicio (?servicio=vacuna) deja el motivo ya elegido.
+  const v = new URLSearchParams(location.search).get('servicio');
+  const sel = document.getElementById('c-servicio') as HTMLSelectElement | null;
+  if (v && sel && [...sel.options].some((o) => o.value === v)) sel.value = v;
+</script>

@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { getEspecies } from '../../lib/contenido';
+
+export async function getStaticPaths() {
+  const especies = await getEspecies();
+  return especies.map((e) => ({ params: { slug: e.id }, props: { e } }));
+}
+const { e } = Astro.props;
+const d = e.data;
+---
+
+<Base titulo={`Cuidar a tu ${d.nombre.toLowerCase()}`} descripcion={d.resumen}>
+  <div class="contenedor">
+    <nav class="migas" aria-label="Migas de pan"><a href="/">Inicio</a> / <a href="/especies/">Especies</a> / <span aria-current="page">{d.plural}</span></nav>
+    <header class="cabecera-pagina" style="padding-bottom:0">
+      <h1>{d.plural}</h1>
+      <p>{d.resumen}</p>
+    </header>
+    <div class="ficha seccion" style="padding-top:28px">
+      <div class="foto-marco"><Image src={d.foto} alt={d.fotoAlt} widths={[500, 800, 1100]} sizes="(min-width: 940px) 38vw, 100vw" loading="eager" style="aspect-ratio:4/5" /></div>
+      <div>
+        <h2 style="margin-top:0">Qué mirar cada día</h2>
+        <ul class="lista">{d.queMirar.map((x) => <li>{x}</li>)}</ul>
+        <h2>Cuidados básicos</h2>
+        <ul class="lista">{d.cuidados.map((x) => <li>{x}</li>)}</ul>
+        <div class="alarma">
+          <h2>Ve ya a una clínica si…</h2>
+          <ul>{d.alarma.map((x) => <li>{x}</li>)}</ul>
+        </div>
+        <p style="margin-top:24px"><strong>Curiosidad:</strong> {d.curiosidad}</p>
+        <p style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn--rojo" href="/urgencias/">¿Es urgente?</a><a class="btn" href="/vacunas/">Ver el calendario de vacunas</a></p>
+      </div>
+    </div>
+  </div>
+</Base>

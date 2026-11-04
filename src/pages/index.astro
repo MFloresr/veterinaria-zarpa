@@ -1,0 +1,138 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Preguntas from '../components/Preguntas.astro';
+import AbiertoAhora from '../components/AbiertoAhora.astro';
+import { getServicios, getEspecies, getEquipo, getOpiniones, getEntradas } from '../lib/contenido';
+import { sitio } from '../lib/sitio';
+import { euros } from '../lib/util';
+import vet from '../assets/fotos/vet-maltes.jpg';
+
+const servicios = (await getServicios()).filter((s) => ['consulta', 'cachorro', 'vacuna', 'esterilizacion'].includes(s.id));
+const especies = await getEspecies();
+const equipo = await getEquipo();
+const opiniones = await getOpiniones();
+const entradas = (await getEntradas()).slice(0, 3);
+const colores = ['amarilla', 'rosa', 'menta', 'azul'];
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'VeterinaryCare',
+  name: sitio.nombre,
+  description: sitio.descripcion,
+  telephone: sitio.telefono,
+  email: sitio.email,
+  address: { '@type': 'PostalAddress', streetAddress: sitio.direccion.calle, postalCode: sitio.direccion.cp, addressLocality: sitio.direccion.ciudad, addressCountry: 'ES' },
+};
+---
+
+<Base titulo="Clínica veterinaria con cita online y guía de urgencias" jsonld={jsonld}>
+  <section class="hero">
+    <div class="contenedor hero__fila">
+      <div class="hero__texto">
+        <h1>¿Le pasa algo a tu peludo?</h1>
+        <p>Responde unas preguntas y te decimos si es de ir ya, de hoy o de esta semana. Y si prefieres hablar con una persona, aquí estamos.</p>
+        <div class="hero__acciones">
+          <a class="btn btn--rojo" href="/urgencias/">¿Es urgente?</a>
+          <a class="btn btn--blanco" href="/cita/">Pedir cita</a>
+        </div>
+        <p style="margin-top:22px;font-weight:700"><AbiertoAhora /></p>
+      </div>
+      <div class="hero__foto">
+        <span class="pegatina pegatina--rosa">Perros, gatos y conejos</span>
+        <div class="foto-marco"><Image src={vet} alt="Veterinaria auscultando con un fonendoscopio a un perro maltés" widths={[500, 800, 1100]} sizes="(min-width: 940px) 40vw, 90vw" loading="eager" style="aspect-ratio:4/3" /></div>
+        <span class="pegatina pegatina--menta">Cita en un minuto</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="contenedor">
+      <div class="cabecera-seccion"><h2>Lo que más hacemos</h2><a class="btn btn--peq btn--blanco" href="/servicios/">Todos los servicios y precios</a></div>
+      <div class="tarjetas">
+        {servicios.map((s, i) => (
+          <a class={`tarjeta tarjeta--${colores[i % 4]} rotar-${(i % 3) + 1}`} href={`/cita/?servicio=${s.id}`}>
+            <h3>{s.data.nombre}</h3>
+            <p>{s.data.descripcion}</p>
+            <span class="precio num">{s.data.desde && <small>desde </small>}{euros(s.data.precio)}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="banda banda--menta seccion">
+    <div class="contenedor">
+      <div class="cabecera-seccion"><h2>Cada animal, su manera</h2><p>Un conejo no se cuida como un perro, ni un gato como un conejo. Aquí tienes lo básico de cada uno.</p></div>
+      <div class="tarjetas">
+        {especies.map((e) => (
+          <a class="tarjeta tarjeta--foto" href={`/especies/${e.id}/`}>
+            <Image src={e.data.foto} alt={e.data.fotoAlt} widths={[400, 700]} sizes="(min-width: 960px) 30vw, 90vw" />
+            <div class="cuerpo"><h3>{e.data.plural}</h3><p>{e.data.resumen}</p></div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="contenedor dos dos--desigual">
+      <div>
+        <h2>¿Cuándo toca la vacuna?</h2>
+        <p class="texto">Elige tu animal y su edad y te mostramos qué vacunas, desparasitaciones y trámites le tocan ahora, cuáles vienen pronto y cuáles después.</p>
+        <p><a class="btn btn--azul" href="/vacunas/">Ver el calendario</a></p>
+      </div>
+      <div class="tarjeta tarjeta--azul rotar-2" style="gap:10px">
+        <p style="font:800 1.3rem var(--f-titulo)">Cachorro de 10 semanas</p>
+        <p>Toca la primera polivalente, la desparasitación y el microchip.</p>
+        <p><span class="etiqueta" style="background:var(--rojo)">Ahora</span> <span class="etiqueta" style="background:var(--amarillo)">Pronto</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="banda banda--negra seccion">
+    <div class="contenedor">
+      <div class="cabecera-seccion"><h2 style="color:#fff">El equipo</h2><a class="btn btn--peq btn--amarillo" href="/equipo/">Conócelos</a></div>
+      <div class="equipo">
+        {equipo.map((p) => (
+          <article class="persona" style="color:var(--tinta)">
+            <span class="persona__iniciales" aria-hidden="true">{p.data.nombre.split(' ').map((x) => x[0]).join('')}</span>
+            <h3>{p.data.nombre}</h3>
+            <p class="cargo">{p.data.cargo}</p>
+            <p style="margin:0;font-size:1rem">{p.data.especialidad}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="contenedor">
+      <div class="cabecera-seccion"><h2>Lo que cuentan</h2></div>
+      <div class="opiniones">
+        {opiniones.map((o) => (
+          <figure class="opinion"><blockquote>«{o.data.texto}»</blockquote><figcaption><strong>{o.data.nombre}</strong>{o.data.animal}</figcaption></figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="banda banda--amarilla seccion">
+    <div class="contenedor">
+      <div class="cabecera-seccion"><h2>Consejos</h2><a class="btn btn--peq btn--blanco" href="/consejos/">Ver todos</a></div>
+      <div class="entradas">
+        {entradas.map((e) => (
+          <article class="entrada">
+            <Image src={e.data.foto} alt={e.data.fotoAlt} widths={[400, 700]} sizes="(min-width: 960px) 30vw, 90vw" />
+            <div class="entrada__cuerpo">
+              <p class="entrada__meta">{e.data.categoria} · {e.data.minutos} min</p>
+              <h3><a href={`/consejos/${e.id}/`}>{e.data.titulo}</a></h3>
+              <p>{e.data.resumen}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion"><div class="contenedor"><Preguntas titulo="Preguntas frecuentes" /></div></section>
+</Base>

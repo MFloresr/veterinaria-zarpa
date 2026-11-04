@@ -1,0 +1,15 @@
+[
+  { "id": "consulta", "nombre": "Consulta general", "categoria": "consulta", "precio": 32, "desde": false, "descripcion": "Revisión completa y respuesta a todas tus dudas.", "orden": 1 },
+  { "id": "urgencia", "nombre": "Consulta de urgencia", "categoria": "consulta", "precio": 55, "desde": true, "descripcion": "Atención sin cita en horario de clínica, o por teléfono de urgencias fuera de horario.", "orden": 2 },
+  { "id": "cachorro", "nombre": "Pack cachorro o gatito", "categoria": "prevencion", "precio": 89, "desde": false, "descripcion": "Revisión, primera vacuna, desparasitación y microchip con registro.", "orden": 3 },
+  { "id": "vacuna", "nombre": "Vacuna anual", "categoria": "prevencion", "precio": 38, "desde": false, "descripcion": "Refuerzo según la especie y su estilo de vida.", "orden": 4 },
+  { "id": "desparasitacion", "nombre": "Desparasitación", "categoria": "prevencion", "precio": 14, "desde": true, "descripcion": "Interna y externa, con la dosis de su peso.", "orden": 5 },
+  { "id": "revision-senior", "nombre": "Revisión sénior", "categoria": "prevencion", "precio": 79, "desde": false, "descripcion": "Para mayores de 7 años: consulta y análisis de sangre.", "orden": 6 },
+  { "id": "analitica", "nombre": "Análisis de sangre", "categoria": "diagnostico", "precio": 45, "desde": true, "descripcion": "Resultados en el día. Te explicamos cada cifra.", "orden": 7 },
+  { "id": "ecografia", "nombre": "Ecografía", "categoria": "diagnostico", "precio": 60, "desde": false, "descripcion": "Abdominal o cardíaca, sin sedación en la mayoría de los casos.", "orden": 8 },
+  { "id": "radiografia", "nombre": "Radiografía", "categoria": "diagnostico", "precio": 50, "desde": true, "descripcion": "Digital, con informe.", "orden": 9 },
+  { "id": "esterilizacion", "nombre": "Esterilización", "categoria": "cirugia", "precio": 120, "desde": true, "descripcion": "Con analgesia, control y revisión de puntos. El precio depende de la especie y del peso.", "orden": 10 },
+  { "id": "limpieza-dental", "nombre": "Limpieza dental", "categoria": "cirugia", "precio": 95, "desde": true, "descripcion": "Con anestesia y control; hay que ayunar antes.", "orden": 11 },
+  { "id": "bano", "nombre": "Baño y cepillado", "categoria": "peluqueria", "precio": 22, "desde": true, "descripcion": "Con productos para piel sensible.", "orden": 12 },
+  { "id": "corte-unas", "nombre": "Corte de uñas", "categoria": "peluqueria", "precio": 7, "desde": false, "descripcion": "Sin cita, mientras estemos abiertos.", "orden": 13 }
+]

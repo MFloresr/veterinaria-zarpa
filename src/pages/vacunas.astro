@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import Preguntas from '../components/Preguntas.astro';
+import { getVacunas } from '../lib/contenido';
+
+const lista = (await getVacunas()).map((v) => ({ id: v.id, ...v.data }));
+---
+
+<Base titulo="Calendario de vacunas y desparasitación" descripcion="Elige especie y edad y descubre qué vacunas, desparasitaciones y trámites le tocan ahora, pronto y más adelante.">
+  <div class="contenedor cabecera-pagina">
+    <h1>Calendario de vacunas</h1>
+    <p>Elige tu animal y su edad. Te decimos qué le toca ahora y qué viene después.</p>
+  </div>
+
+  <section class="seccion" style="padding-top:24px">
+    <div class="contenedor" id="vacunas" data-lista={JSON.stringify(lista)}>
+      <div class="controles">
+        <div>
+          <label for="v-especie">Animal</label>
+          <select id="v-especie"><option value="perro">Perro</option><option value="gato">Gato</option><option value="conejo">Conejo</option></select>
+        </div>
+        <div>
+          <label for="v-edad">Edad</label>
+          <select id="v-edad">
+            <option value="4">Menos de 2 meses</option>
+            <option value="9" selected>2 meses</option>
+            <option value="13">3 meses</option>
+            <option value="17">4 meses</option>
+            <option value="26">6 meses</option>
+            <option value="39">9 meses</option>
+            <option value="52">1 año</option>
+            <option value="104">2 años o más</option>
+            <option value="400">Mayor (7 años o más)</option>
+          </select>
+        </div>
+      </div>
+      <div class="linea-vacunas" id="linea" aria-live="polite"></div>
+      <p class="aviso aviso--demo" style="max-width:70ch">Calendario orientativo. Tu veterinario lo ajusta según la salud, el estilo de vida y la normativa de tu comunidad (por ejemplo, la vacuna antirrábica y el microchip).</p>
+      <p style="margin-top:24px"><a class="btn btn--azul" href="/cita/?servicio=vacuna">Pedir cita para vacunar</a></p>
+    </div>
+  </section>
+
+  <section class="banda banda--menta seccion"><div class="contenedor"><Preguntas tema="vacunas" titulo="Sobre las vacunas" /></div></section>
+</Base>
+
+<script>
+  type V = { id: string; especie: string; nombre: string; desdeSemanas: number; hastaSemanas: number | null; repite: string; nota: string };
+  const raiz = document.getElementById('vacunas')!;
+  const lista: V[] = JSON.parse(raiz.dataset.lista || '[]');
+  const esp = document.getElementById('v-especie') as HTMLSelectElement;
+  const edad = document.getElementById('v-edad') as HTMLSelectElement;
+  const salida = document.getElementById('linea')!;
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+  const orden = { ahora: 0, pronto: 1, mantener: 2, luego: 3 } as const;
+  const rotulo = { ahora: 'Toca ahora', pronto: 'Pronto', mantener: 'Mantener al día', luego: 'Más adelante' } as const;
+
+  function pintar() {
+    const e = Number(edad.value);
+    const items = lista.filter((v) => v.especie === esp.value).map((v) => {
+      let estado: keyof typeof orden;
+      if (v.desdeSemanas > e) estado = v.desdeSemanas - e <= 8 ? 'pronto' : 'luego';
+      else if (v.hastaSemanas !== null && e > v.hastaSemanas + 4 && e <= 30) estado = 'mantener';
+      else if (v.hastaSemanas === null) estado = e <= 30 ? 'ahora' : 'mantener';
+      else estado = e <= v.hastaSemanas + 4 ? 'ahora' : 'mantener';
+      return { v, estado };
+    }).sort((a, b) => orden[a.estado] - orden[b.estado] || a.v.desdeSemanas - b.v.desdeSemanas);
+    salida.innerHTML = items.map(({ v, estado }) => `
+      <article class="vacuna" data-estado="${estado}">
+        <span class="cuando">${rotulo[estado]}</span>
+        <h2>${esc(v.nombre)}</h2>
+        <p><strong>Cuándo:</strong> desde las ${v.desdeSemanas} semanas${v.hastaSemanas ? ` (hasta las ${v.hastaSemanas})` : ''}. ${esc(v.repite)}.</p>
+        ${v.nota ? `<p>${esc(v.nota)}</p>` : ''}
+      </article>`).join('');
+  }
+  esp.addEventListener('change', pintar);
+  edad.addEventListener('change', pintar);
+  pintar();
+</script>

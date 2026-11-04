@@ -1,0 +1,5 @@
+[
+  { "id": "o1", "texto": "Mi gato dejó de comer un domingo y con la guía de urgencias supe que era para ir hoy. Lo atendieron enseguida y se puso bien.", "nombre": "Raquel", "animal": "Gato: Mostaza" },
+  { "id": "o2", "texto": "Por fin alguien que te explica las vacunas con un calendario claro. Ya no se me olvida ninguna.", "nombre": "David", "animal": "Perro: Nube" },
+  { "id": "o3", "texto": "Tengo conejo y es difícil encontrar quien lo trate bien. Aquí saben lo que hacen y no me dieron un consejo de perro.", "nombre": "Irene", "animal": "Conejo: Pantufla" }
+]

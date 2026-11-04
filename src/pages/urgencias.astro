@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import Preguntas from '../components/Preguntas.astro';
+import { getSignos } from '../lib/contenido';
+import { sitio } from '../lib/sitio';
+import { NOMBRE_ESPECIE } from '../lib/util';
+
+const signos = await getSignos();
+const grupos = [
+  { nivel: 'ya', titulo: 'Para ir ya' },
+  { nivel: 'hoy', titulo: 'Para ver hoy mismo' },
+  { nivel: 'pronto', titulo: 'Para esta semana' },
+] as const;
+const datos = { ya: sitio.telefonoUrgenciasVisible, tel: sitio.telefonoUrgencias, cita: sitio.telefono };
+---
+
+<Base titulo="¿Es urgente? Guía rápida" descripcion="Elige tu animal y marca lo que le pasa: te decimos si hay que ir ya, hoy o esta semana. Orientación general, no un diagnóstico.">
+  <div class="contenedor cabecera-pagina">
+    <h1>¿Es urgente?</h1>
+    <p>Elige tu animal y marca lo que ves. Te damos una orientación al momento.</p>
+    <p class="aviso aviso--demo" style="max-width:68ch;margin-top:0"><strong>Es una guía general, no un diagnóstico.</strong> Si tienes dudas, o tu animal te preocupa aunque no salga aquí, llama o ve a la clínica.</p>
+  </div>
+
+  <section class="seccion" style="padding-top:24px">
+    <div class="contenedor guia" id="guia" data-urgencias={JSON.stringify(datos)}>
+      <div>
+        <fieldset>
+          <legend>¿Quién es?</legend>
+          <div class="elige">
+            {['perro', 'gato', 'conejo'].map((e, i) => (
+              <label><input type="radio" name="especie" value={e} checked={i === 0} /><span>{NOMBRE_ESPECIE[e]}</span></label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>¿Qué le pasa?</legend>
+          {grupos.map((g) => (
+            <div class="grupo-signos" data-nivel={g.nivel} data-grupo>
+              <h2>{g.titulo}</h2>
+              {signos.filter((s) => s.data.nivel === g.nivel).map((s) => (
+                <label class="signo" data-especies={s.data.especies.join(' ')} data-nivel={g.nivel} data-mientras={s.data.mientras}>
+                  <input type="checkbox" name="signo" value={s.id} />
+                  <span>{s.data.texto}</span>
+                </label>
+              ))}
+            </div>
+          ))}
+        </fieldset>
+      </div>
+
+      <aside class="veredicto" id="veredicto" aria-live="polite" aria-atomic="true">
+        <h2>Marca lo que ves</h2>
+        <p>Cuando elijas una o más señales, aquí te diremos qué hacer.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="banda banda--rosa seccion">
+    <div class="contenedor dos">
+      <div>
+        <h2>Fuera de horario</h2>
+        <p class="texto">Llama al teléfono de urgencias: <a href={`tel:${sitio.telefonoUrgencias}`} style="font-weight:800">{sitio.telefonoUrgenciasVisible}</a>. Si no contestamos, ve a la clínica de guardia más cercana. Es mejor ir y que no sea nada.</p>
+      </div>
+      <p><a class="btn btn--rojo" href={`tel:${sitio.telefonoUrgencias}`}>Llamar a urgencias</a></p>
+    </div>
+  </section>
+
+  <section class="seccion"><div class="contenedor"><Preguntas tema="urgencias" titulo="Sobre las urgencias" /></div></section>
+</Base>
+
+<script>
+  const raiz = document.getElementById('guia')!;
+  const D = JSON.parse(raiz.dataset.urgencias || '{}');
+  const out = document.getElementById('veredicto')!;
+  const signos = [...raiz.querySelectorAll<HTMLLabelElement>('.signo')];
+  const especie = () => raiz.querySelector<HTMLInputElement>('input[name="especie"]:checked')!.value;
+  const texto = (el: Element) => el.querySelector('span')!.textContent!;
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+
+  function pintar() {
+    const e = especie();
+    signos.forEach((s) => {
+      const vale = s.dataset.especies!.split(' ').includes(e);
+      s.hidden = !vale;
+      if (!vale) s.querySelector('input')!.checked = false;
+    });
+    raiz.querySelectorAll<HTMLElement>('[data-grupo]').forEach((g) => { g.hidden = !g.querySelector('.signo:not([hidden])'); });
+    const marcados = signos.filter((s) => s.querySelector('input')!.checked);
+    if (!marcados.length) {
+      out.removeAttribute('data-nivel');
+      out.innerHTML = '<h2>Marca lo que ves</h2><p>Cuando elijas una o más señales, aquí te diremos qué hacer.</p>';
+      return;
+    }
+    const nivel = (['ya', 'hoy', 'pronto'] as const).find((n) => marcados.some((s) => s.dataset.nivel === n))!;
+    out.dataset.nivel = nivel;
+    const tit = { ya: 'Ve ya a una clínica', hoy: 'Pide cita para hoy mismo', pronto: 'Pide cita esta semana' }[nivel];
+    const sub = {
+      ya: 'Lo que marcas puede ser grave. No esperes a ver si mejora: llama de camino y ve ahora.',
+      hoy: 'No parece una emergencia, pero no conviene esperar a mañana.',
+      pronto: 'No es urgente, pero conviene mirarlo antes de que vaya a más.',
+    }[nivel];
+    const tips = marcados.filter((s) => s.dataset.nivel === nivel).map((s) => `<li><strong>${esc(texto(s))}.</strong> ${esc(s.dataset.mientras!)}</li>`).join('');
+    const botones = nivel === 'ya'
+      ? `<a class="btn btn--blanco" href="tel:${D.tel}">Llamar: ${D.ya}</a>`
+      : `<a class="btn btn--blanco" href="/cita/">Pedir cita</a> <a class="btn btn--blanco" href="tel:${D.cita.replace(/ /g, '')}">Llamar</a>`;
+    out.innerHTML = `<h2>${tit}</h2><p>${sub}</p><ul>${tips}</ul><p>${botones}</p><p style="font-size:0.9rem;margin:0">Orientación general: no sustituye la opinión de un veterinario.</p>`;
+  }
+  raiz.addEventListener('change', pintar);
+  pintar();
+</script>

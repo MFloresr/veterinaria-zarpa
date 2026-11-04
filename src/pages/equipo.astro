@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import { getEquipo } from '../lib/contenido';
+
+const equipo = await getEquipo();
+const iniciales = (n: string) => n.split(' ').map((p) => p[0]).join('');
+---
+
+<Base titulo="El equipo" descripcion="Veterinarias y auxiliar de Zarpa: especialidades y cómo trabajan.">
+  <div class="contenedor cabecera-pagina">
+    <h1>El equipo</h1>
+    <p>Cuatro personas que saben tu nombre y el de tu animal.</p>
+  </div>
+  <section class="seccion" style="padding-top:24px">
+    <div class="contenedor">
+      <div class="equipo">
+        {equipo.map((p) => (
+          <article class="persona">
+            <span class="persona__iniciales" aria-hidden="true">{iniciales(p.data.nombre)}</span>
+            <h2 style="font-size:1.6rem;margin-bottom:2px">{p.data.nombre}</h2>
+            <p class="cargo">{p.data.cargo} · {p.data.especialidad}</p>
+            <p>{p.data.texto}</p>
+            <p class="letra-pequena" style="margin:0">{p.data.colegiado}</p>
+          </article>
+        ))}
+      </div>
+      <p class="letra-pequena" style="margin-top:18px">Los nombres, perfiles y números de colegiado son de ejemplo. El cliente los sustituye por los reales: la ley exige que los veterinarios estén colegiados.</p>
+    </div>
+  </section>
+  <section class="banda banda--rosa seccion">
+    <div class="contenedor dos">
+      <div>
+        <h2>Cómo trabajamos</h2>
+        <ul class="lista">
+          <li>Te explicamos qué vemos y qué opciones hay, sin tecnicismos.</li>
+          <li>Te damos el presupuesto antes de hacer pruebas o cirugías.</li>
+          <li>Tratamos a cada especie como lo que es: un conejo no es un perro pequeño.</li>
+          <li>Te llamamos al día siguiente de cada intervención.</li>
+        </ul>
+      </div>
+      <p><a class="btn btn--blanco" href="/cita/">Pedir cita</a></p>
+    </div>
+  </section>
+</Base>

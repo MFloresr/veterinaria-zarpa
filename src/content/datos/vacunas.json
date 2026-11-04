@@ -1,0 +1,20 @@
+[
+  { "id": "p1", "especie": "perro", "nombre": "Primera vacuna polivalente (moquillo, parvovirus, hepatitis, leptospira)", "desdeSemanas": 8, "hastaSemanas": 10, "repite": "Refuerzo a las 12 semanas", "nota": "Hasta completar la pauta, evita zonas con muchos perros." },
+  { "id": "p2", "especie": "perro", "nombre": "Refuerzo de la polivalente", "desdeSemanas": 12, "hastaSemanas": 14, "repite": "Después, cada año", "nota": "" },
+  { "id": "p3", "especie": "perro", "nombre": "Rabia", "desdeSemanas": 12, "hastaSemanas": null, "repite": "Según la normativa de tu comunidad (a menudo cada año)", "nota": "Obligatoria en Catalunya y en otras comunidades. Se anota en el pasaporte." },
+  { "id": "p4", "especie": "perro", "nombre": "Tos de las perreras (si va a residencias, guarderías o parques)", "desdeSemanas": 12, "hastaSemanas": null, "repite": "Cada año", "nota": "Opcional, según su vida social." },
+  { "id": "p5", "especie": "perro", "nombre": "Desparasitación interna", "desdeSemanas": 2, "hastaSemanas": null, "repite": "Cada 15 días hasta los 3 meses; después, cada 3 meses", "nota": "" },
+  { "id": "p6", "especie": "perro", "nombre": "Pipeta o collar antiparasitario externo (pulgas, garrapatas)", "desdeSemanas": 8, "hastaSemanas": null, "repite": "Según el producto, de uno a tres meses", "nota": "Que sea de la talla de tu perro." },
+  { "id": "p7", "especie": "perro", "nombre": "Microchip", "desdeSemanas": 8, "hastaSemanas": 12, "repite": "Una sola vez", "nota": "Obligatorio. Debe estar registrado a tu nombre." },
+  { "id": "g1", "especie": "gato", "nombre": "Primera vacuna trivalente (panleucopenia, calicivirus, herpesvirus)", "desdeSemanas": 8, "hastaSemanas": 9, "repite": "Refuerzo a las 12 semanas", "nota": "" },
+  { "id": "g2", "especie": "gato", "nombre": "Refuerzo de la trivalente", "desdeSemanas": 12, "hastaSemanas": 13, "repite": "Después, cada año o cada tres años según el riesgo", "nota": "" },
+  { "id": "g3", "especie": "gato", "nombre": "Leucemia felina (sobre todo si sale a la calle)", "desdeSemanas": 8, "hastaSemanas": null, "repite": "Dos dosis y, después, cada año", "nota": "Antes se hace un test sencillo." },
+  { "id": "g4", "especie": "gato", "nombre": "Rabia", "desdeSemanas": 12, "hastaSemanas": null, "repite": "Según la normativa de tu comunidad", "nota": "Obligatoria para viajar al extranjero." },
+  { "id": "g5", "especie": "gato", "nombre": "Desparasitación interna", "desdeSemanas": 3, "hastaSemanas": null, "repite": "Cada 15 días hasta los 3 meses; después, cada 3 meses", "nota": "" },
+  { "id": "g6", "especie": "gato", "nombre": "Antiparasitario externo", "desdeSemanas": 8, "hastaSemanas": null, "repite": "Según el producto, mensual o trimestral", "nota": "Nunca uses pipetas de perro en un gato." },
+  { "id": "g7", "especie": "gato", "nombre": "Microchip", "desdeSemanas": 8, "hastaSemanas": 12, "repite": "Una sola vez", "nota": "Obligatorio en muchas comunidades." },
+  { "id": "c1", "especie": "conejo", "nombre": "Mixomatosis", "desdeSemanas": 6, "hastaSemanas": null, "repite": "Cada 6 meses", "nota": "Es la más importante en conejos de compañía, incluso si viven dentro de casa." },
+  { "id": "c2", "especie": "conejo", "nombre": "Enfermedad hemorrágica vírica", "desdeSemanas": 10, "hastaSemanas": null, "repite": "Cada año", "nota": "Se pone con unas dos semanas de diferencia de la anterior." },
+  { "id": "c3", "especie": "conejo", "nombre": "Desparasitación interna", "desdeSemanas": 8, "hastaSemanas": null, "repite": "Cada 3 meses", "nota": "Consulta qué producto: no todos sirven para conejos." },
+  { "id": "c4", "especie": "conejo", "nombre": "Revisión dental", "desdeSemanas": 16, "hastaSemanas": null, "repite": "Cada 6 meses", "nota": "Los dientes crecen toda la vida: el heno y la revisión evitan problemas." }
+]
